@@ -1,0 +1,182 @@
+﻿/* ============================================================
+   COSMOS – THEME CSS
+   Light + Dark modes with full variable overrides.
+   Applied via: <body class="theme-dark"> or .theme-light
+============================================================ */
+
+/* -------------------------
+   SHARED ACCENT COLOURS
+-------------------------- */
+
+:root {
+  --accent-blue: #38bdf8;
+  --accent-gold: #fbbf24;
+  --accent-orange: #f97316;
+  --accent-pink: #f472b6;
+
+  --sun-color: #ffd95e;
+  --planet-color: #7dd3fc;
+  --moon-color: #c084fc;
+}
+
+/* ============================================================
+   DARK THEME
+============================================================ */
+
+body.theme-dark {
+  --bg: #090b10;
+  --bg-panel: #131722;
+  --bg-panel-soft: #1c2230;
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+
+  --text: #e7ecf5;
+  --text-soft: #8891a6;
+
+  --border: rgba(255, 255, 255, 0.10);
+
+  /* Highlights */
+  --accent: var(--accent-gold);
+  --accent-soft: rgba(251, 191, 36, 0.18);
+
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+
+  /* Map */
+  --map-bg: radial-gradient(circle at center, #0c0f15 0%, #05070c 60%, #000 100%);
+  --orbit-stroke: rgba(255,255,255,0.10);
+  --link-stroke: rgba(255,255,255,0.22);
+}
+
+/* ============================================================
+   LIGHT THEME
+============================================================ */
+
+body.theme-light {
+  --bg: #fafafa;
+  --bg-panel: #ffffff;
+  --bg-panel-soft: #f2f2f5;
+  --bg-overlay: rgba(255,255,255,0.6);
+
+  --text: #1a1a1e;
+  --text-soft: #5f6270;
+
+  --border: rgba(0, 0, 0, 0.14);
+
+  --accent: #d97706;
+  --accent-soft: rgba(217,119,6,0.15);
+
+  --shadow: 0 14px 36px rgba(0, 0, 0, 0.10);
+
+  --map-bg: radial-gradient(circle at center, #fdfdfd 0%, #f3f3f5 60%, #e9e9ec 100%);
+  --orbit-stroke: rgba(0,0,0,0.15);
+  --link-stroke: rgba(0,0,0,0.25);
+}
+
+/* ============================================================
+   TRANSITIONS BETWEEN THEMES
+============================================================ */
+
+body.theme-dark,
+body.theme-light {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+#left-panel,
+#right-panel,
+.panel-block,
+#weaver-drive,
+#map-panel,
+#map-header,
+#breadcrumbs {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    color 0.35s ease;
+}
+
+/* ============================================================
+   BEAM ADJUSTMENTS PER THEME
+============================================================ */
+
+body.theme-light #beam {
+  background: rgba(255,191,72,0.25);
+}
+
+body.theme-light #beam-inner {
+  background: linear-gradient(90deg, #0ea5e9, #fbbf24, #fb923c);
+}
+
+/* ============================================================
+   ORBIT & LINK COLOUR MAPPINGS
+============================================================ */
+
+/* Suns (Systems) */
+.sun-node {
+  --node-color: var(--sun-color);
+}
+
+/* Planets */
+.planet-node {
+  --node-color: var(--planet-color);
+}
+
+/* Moons */
+.moon-node {
+  --node-color: var(--moon-color);
+}
+
+/* Dynamic node glow */
+.node-glow {
+  filter: drop-shadow(0 0 8px var(--node-color));
+}
+
+/* Lines, orbits, arcs */
+.orbit-line {
+  stroke: var(--orbit-stroke);
+}
+
+.link-line {
+  stroke: var(--link-stroke);
+}
+
+/* ============================================================
+   MINIMAP
+============================================================ */
+
+#cosmos-mini-map {
+  background: var(--bg-panel);
+  transition: background-color 0.35s ease;
+}
+
+/* ============================================================
+   MODAL + POPOVER
+============================================================ */
+
+.modal-content {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.modal-backdrop {
+  background: var(--bg-overlay);
+}
+
+.popover-content {
+  background: var(--bg-panel-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   THEME UTILITY CLASSES
+============================================================ */
+
+.theme-transition {
+  transition: all 0.35s ease;
+}
+

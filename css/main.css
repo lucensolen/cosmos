@@ -1,0 +1,445 @@
+﻿/* ============================================================
+   COSMOS – MAIN CSS
+   Core layout, panel chrome, map containers, UI atoms.
+   Theme colours (light/dark) are layered by theme.css
+============================================================ */
+
+/* -------------------------
+   BASE RESET
+-------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Smoothness */
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+
+/* =====================================================================
+   ROOT VARIABLES (NEUTRAL — actual colours live in theme.css)
+===================================================================== */
+
+:root {
+  /* Colours filled by theme.css */
+  --bg: #000;
+  --bg-panel: #111;
+  --bg-panel-soft: #1a1a1a;
+  --bg-overlay: rgba(0,0,0,0.5);
+
+  --text: #fff;
+  --text-soft: #aaa;
+
+  --accent: #f5b642;
+  --accent-soft: rgba(245,182,66,0.25);
+
+  --border: rgba(255,255,255,0.12);
+
+  --radius: 12px;
+  --radius-lg: 20px;
+
+  --shadow: 0 10px 30px rgba(0,0,0,0.45);
+
+  --transition: 0.2s ease;
+}
+
+/* =====================================================================
+   TOP BAR
+===================================================================== */
+
+#top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  justify-content: space-between;
+  background: var(--bg-panel-soft);
+  box-shadow: var(--shadow);
+  z-index: 30;
+}
+
+#brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.brand-mark {
+  font-size: 22px;
+  opacity: 0.8;
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+#top-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#beam {
+  width: 480px;
+  height: 6px;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+#beam-inner {
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, #38bdf8, #fbbf24, #f97316);
+  animation: beamPulse 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes beamPulse {
+  0% { transform: translateX(-10%); opacity: 0.8; }
+  100% { transform: translateX(180%); opacity: 1; }
+}
+
+#top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+#theme-toggle,
+#help-toggle {
+  background: var(--bg-panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+#theme-toggle:hover,
+#help-toggle:hover {
+  background: var(--accent-soft);
+}
+
+/* =====================================================================
+   MAIN LAYOUT GRID
+===================================================================== */
+
+#layout {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 116px);
+  display: grid;
+  grid-template-columns: 300px 1fr 330px;
+  grid-template-rows: 1fr;
+  background: var(--bg);
+}
+
+/* =====================================================================
+   LEFT PANEL
+===================================================================== */
+
+#left-panel {
+  padding: 16px;
+  overflow-y: auto;
+  background: var(--bg-panel-soft);
+  border-right: 1px solid var(--border);
+}
+
+.panel-block {
+  background: var(--bg-panel);
+  padding: 14px;
+  margin-bottom: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.block-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.hint {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.inline-help {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.text-input,
+.text-area,
+.select-input {
+  width: 100%;
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.text-area {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.col {
+  flex: 1;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: #000;
+}
+.primary-btn:hover {
+  background: var(--accent-soft);
+}
+
+.secondary-btn {
+  background: var(--bg-panel-soft);
+  color: var(--text);
+}
+.secondary-btn:hover {
+  background: var(--accent-soft);
+}
+
+.small {
+  padding: 4px 8px !important;
+  font-size: 12px;
+}
+
+/* Pills (mode toggle) */
+.pill-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  flex: 1;
+  padding: 6px;
+  background: var(--bg-panel-soft);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-align: center;
+}
+
+.pill.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Small text */
+.micro-copy {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* =====================================================================
+   CENTER MAP AREA
+===================================================================== */
+
+#map-panel {
+  position: relative;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+}
+
+#map-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: var(--bg-panel-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.map-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#map-wrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 42px);
+}
+
+#cosmos-map {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  background: var(--bg-panel);
+}
+
+/* Breadcrumbs overlay */
+#breadcrumbs {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  background: var(--bg-panel-soft);
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+
+.crumb-sep {
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+/* =====================================================================
+   RIGHT PANEL
+===================================================================== */
+
+#right-panel {
+  padding: 16px;
+  overflow-y: auto;
+  background: var(--bg-panel-soft);
+}
+
+.selection-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.selection-path {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.selection-meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+/* Entry log scroll block */
+.scroll-block {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Toggles */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+/* =====================================================================
+   FOOTER – WEAVER DRIVE
+===================================================================== */
+
+#weaver-drive {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: var(--bg-panel-soft);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  z-index: 20;
+}
+
+#weaver-left,
+#weaver-right {
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#mini-map-wrapper {
+  width: 100%;
+  height: 32px;
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+#cosmos-mini-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Timeline controls */
+#timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#timeline-slider {
+  flex: 1;
+}
+

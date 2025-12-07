@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CosmOS – Lucen Universe Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Core styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <!-- Light / Dark themes -->
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+
+<body class="theme-dark">
+  <div id="cosmos-root">
+
+    <!-- TOP BAR / BEAM -->
+    <header id="top-bar">
+      <div id="brand">
+        <span class="brand-mark">◐</span>
+        <span class="brand-title">CosmOS</span>
+        <span class="brand-sub">Lucen Universe Engine</span>
+      </div>
+
+      <div id="top-center">
+        <div id="beam">
+          <div id="beam-inner"></div>
+        </div>
+      </div>
+
+      <div id="top-actions">
+        <button id="theme-toggle" title="Toggle light / dark">
+          ☀︎ / ☾
+        </button>
+        <button id="help-toggle" title="Quick help">
+          ?
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT: LEFT PANEL / MAP / RIGHT PANEL -->
+    <main id="layout">
+      <!-- LEFT PANEL: CREATION & LINEAGE -->
+      <aside id="left-panel">
+
+        <!-- MODES -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>Mode</h2>
+            <span class="hint">Universe physics</span>
+          </div>
+          <div id="mode-toggle" class="pill-toggle">
+            <button id="mode-generate" class="pill active" data-mode="generate">
+              Generate
+            </button>
+            <button id="mode-evolve" class="pill" data-mode="evolve">
+              Evolve
+            </button>
+          </div>
+          <p class="micro-copy">
+            <strong>Generate</strong> creates new star systems. 
+            <strong>Evolve</strong> grows planets, moons, and entries inside the current system.
+          </p>
+        </section>
+
+        <!-- SYSTEM CREATOR (SUN) -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>New System</h2>
+            <button class="inline-help" data-help="system">
+              ?
+            </button>
+          </div>
+
+          <label class="field-label" for="system-name-input">
+            System title
+          </label>
+          <input
+            id="system-name-input"
+            type="text"
+            placeholder="e.g. Farm, Studio, Business"
+            class="text-input"
+          />
+
+          <label class="field-label" for="system-lens">
+            Universal Lens (optional description)
+          </label>
+          <textarea
+            id="system-lens"
+            class="text-area"
+            placeholder="Describe this system. Purpose, feel, scope…"
+          ></textarea>
+
+          <div class="row">
+            <button id="system-attach" class="secondary-btn" type="button">
+              Attach file / photo
+            </button>
+            <span class="micro-copy">attachments stay with this system</span>
+          </div>
+
+          <button id="create-system" class="primary-btn" type="button">
+            Create System (Sun)
+          </button>
+        </section>
+
+        <!-- LINEAGE SELECTORS -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>Lineage</h2>
+            <span class="hint">Where are we working?</span>
+          </div>
+
+          <label class="field-label" for="select-system">System (Sun)</label>
+          <select id="select-system" class="select-input">
+            <option value="">— None —</option>
+          </select>
+
+          <label class="field-label" for="select-planet">Planet</label>
+          <select id="select-planet" class="select-input">
+            <option value="">— None —</option>
+          </select>
+
+          <label class="field-label" for="select-moon">Moon</label>
+          <select id="select-moon" class="select-input">
+            <option value="">— None —</option>
+          </select>
+
+          <p class="micro-copy">
+            These dropdowns follow lineage:
+            systems → planets → moons.
+            CosmOS uses this context when evolving.
+          </p>
+        </section>
+
+        <!-- NODE CREATOR (PLANET / MOON / ENTRY) -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>Add New</h2>
+            <button class="inline-help" data-help="node">
+              ?
+            </button>
+          </div>
+
+          <label class="field-label" for="node-title-input">
+            Title
+          </label>
+          <input
+            id="node-title-input"
+            type="text"
+            class="text-input"
+            placeholder="e.g. Animals, Equipment, Chickens, Sprint Plan…"
+          />
+
+          <label class="field-label" for="node-lens">
+            Universal Lens
+          </label>
+          <textarea
+            id="node-lens"
+            class="text-area"
+            placeholder="Note, plan, reflection, or description for this node."
+          ></textarea>
+
+          <div class="row spaced">
+            <div class="col">
+              <label class="field-label" for="energy-slider">
+                Energy / Distance
+              </label>
+              <input
+                id="energy-slider"
+                type="range"
+                min="-5"
+                max="5"
+                step="1"
+                value="0"
+              />
+              <div id="energy-readout" class="micro-copy">
+                Centre orbit
+              </div>
+            </div>
+
+            <div class="col">
+              <label class="field-label">Tone</label>
+              <select id="tone-select" class="select-input">
+                <option value="neutral">Neutral</option>
+                <option value="reflective">Reflective</option>
+                <option value="directive">Directive</option>
+                <option value="creative">Creative</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="node-attach" class="secondary-btn" type="button">
+            Attach file / photo
+          </button>
+
+          <button id="create-node" class="primary-btn" type="button">
+            Add New
+          </button>
+
+          <p class="micro-copy">
+            In <strong>Generate</strong>, this creates a new connected system
+            when a System is selected. In <strong>Evolve</strong>, it creates
+            planets, moons, or entries under the current lineage.
+          </p>
+        </section>
+      </aside>
+
+      <!-- CENTER: UNIVERSE MAP -->
+      <section id="map-panel">
+        <div id="map-header">
+          <span class="map-title">Universe Map</span>
+          <span id="map-status" class="map-status">Idle</span>
+        </div>
+        <div id="map-wrapper">
+          <canvas id="cosmos-map"></canvas>
+
+          <!-- Mini overlay for selection breadcrumbs -->
+          <div id="breadcrumbs">
+            <span id="crumb-system">No system</span>
+            <span class="crumb-sep">/</span>
+            <span id="crumb-planet">—</span>
+            <span class="crumb-sep">/</span>
+            <span id="crumb-moon">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: DETAILS, LOG, PROMOTIONS -->
+      <aside id="right-panel">
+
+        <!-- SELECTION SUMMARY -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>Selection</h2>
+            <span id="selection-type" class="hint">Nothing selected</span>
+          </div>
+
+          <div id="selection-summary">
+            <div class="selection-title" id="selection-title">—</div>
+            <div class="selection-path" id="selection-path">—</div>
+
+            <div class="selection-meta-row">
+              <span class="meta-label">Entries</span>
+              <span class="meta-value" id="selection-entry-count">0</span>
+            </div>
+            <div class="selection-meta-row">
+              <span class="meta-label">Last update</span>
+              <span class="meta-value" id="selection-last-update">—</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <button id="promote-to-system" class="secondary-btn small" type="button">
+              Promote to System
+            </button>
+            <button id="focus-on-selection" class="secondary-btn small" type="button">
+              Focus
+            </button>
+          </div>
+        </section>
+
+        <!-- ENTRY LOG -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>Flow Log</h2>
+            <span class="hint">Entries in this node</span>
+          </div>
+          <div id="entry-log" class="scroll-block">
+            <!-- Filled by JS -->
+          </div>
+        </section>
+
+        <!-- TOGGLES -->
+        <section class="panel-block">
+          <div class="block-header">
+            <h2>View</h2>
+            <span class="hint">Universe overlays</span>
+          </div>
+
+          <label class="toggle-row">
+            <input id="toggle-orbits" type="checkbox" checked />
+            <span>Show orbits</span>
+          </label>
+
+          <label class="toggle-row">
+            <input id="toggle-links" type="checkbox" checked />
+            <span>Show system links</span>
+          </label>
+
+          <label class="toggle-row">
+            <input id="toggle-minimap" type="checkbox" checked />
+            <span>Show mini-map in Weaver-Drive</span>
+          </label>
+        </section>
+      </aside>
+    </main>
+
+    <!-- BOTTOM DOCK: WEAVER-DRIVE (MINI-MAP + TIMELINE) -->
+    <footer id="weaver-drive">
+      <div id="weaver-left">
+        <div class="block-header compact">
+          <h2>Weaver-Drive</h2>
+          <span class="hint">Mini map</span>
+        </div>
+        <div id="mini-map-wrapper">
+          <canvas id="cosmos-mini-map"></canvas>
+        </div>
+      </div>
+
+      <div id="weaver-right">
+        <div class="block-header compact">
+          <h2>Timeline</h2>
+          <span class="hint">Scrub universe state</span>
+        </div>
+        <div id="timeline-controls">
+          <button id="timeline-play" class="secondary-btn small" type="button">
+            ▶
+          </button>
+          <button id="timeline-pause" class="secondary-btn small" type="button">
+            ❚❚
+          </button>
+          <input
+            id="timeline-slider"
+            type="range"
+            min="0"
+            max="100"
+            value="100"
+          />
+          <span id="timeline-label" class="micro-copy">
+            Now
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL: NODE / SYSTEM INSPECTOR -->
+  <div id="inspector-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 id="inspector-title">Node</h2>
+        <button id="inspector-close" class="icon-btn" type="button">✕</button>
+      </header>
+
+      <div class="modal-body">
+        <div class="field">
+          <label class="field-label" for="inspector-name">Title</label>
+          <input id="inspector-name" class="text-input" type="text" />
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="inspector-text">Lens</label>
+          <textarea id="inspector-text" class="text-area"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Attachments</label>
+          <div id="inspector-attachments" class="attachment-list">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Meta</label>
+          <div id="inspector-meta" class="micro-copy"></div>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button id="inspector-save" class="primary-btn" type="button">
+          Save
+        </button>
+        <button id="inspector-delete" class="secondary-btn" type="button">
+          Delete
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- QUICK-HELP POPOVER (LIGHTWEIGHT) -->
+  <div id="help-popover" class="popover hidden">
+    <div class="popover-content" id="help-content"></div>
+  </div>
+
+  <!-- ENTRY SCRIPT: CORE MODULE BOOTSTRAPS THE REST -->
+  <script type="module" src="js/cosmos.core.js"></script>
+</body>
+</html>
